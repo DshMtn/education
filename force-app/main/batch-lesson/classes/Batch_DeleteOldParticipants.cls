@@ -13,7 +13,6 @@ public with sharing class Batch_DeleteOldParticipants implements Database.Batcha
     public Database.QueryLocator start(Database.BatchableContext bc) {
         return Database.getQueryLocator([SELECT Id, LastModifiedDate FROM Study_Participant__c WHERE Status__c = 'Closed']);
     }
-
     public void execute(Database.BatchableContext bc, List<Study_Participant__c> scope) {
         List<Study_Participant__c> studyParticipantsToDelete = new List<Study_Participant__c>();
         for (Study_Participant__c studyParticipant : scope){
