@@ -3,7 +3,7 @@
  */
 
 public with sharing class StudyParticipantTriggerHandler {
-        public static void updateStudyParticipantKey(List<Study_Participant__c> spList){
+        public static void updateStudyParticipantKey(List<Study_Participant__c> spList) {
             Set<Id> clinicalStudyIds = new Set<Id>();
             for(Study_Participant__c sp : spList) clinicalStudyIds.add(sp.Clinical_Study__c);
 
@@ -20,12 +20,12 @@ public with sharing class StudyParticipantTriggerHandler {
             //var2
             //clinicalStudyMap = new Map<Id, Clinical_Study__c>(clinicalStudies);
 
-            for(Study_Participant__c sp : spList){
+            for(Study_Participant__c sp : spList) {
                 String studyName = clinicalStudyMap.get(sp.Clinical_Study__c).Name;
-                sp.Study_Participant_Key__c = sp.Contact__c + ' ' + studyName;
+            sp.Study_Participant_Key__c = sp.Contact__c + ' ' + studyName;
             }
         }
-    public static void updateCurrentStudyParticipant(List<Id> contactIds){
+    public static void updateCurrentStudyParticipant(List<Id> contactIds) {
         List<Study_Participant__c> studyParticipants = [
                 SELECT Id, Name, Status__c
                 FROM Study_Participant__c
