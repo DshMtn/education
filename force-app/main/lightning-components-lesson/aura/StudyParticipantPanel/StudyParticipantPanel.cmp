@@ -3,9 +3,17 @@
  -->
 
 <aura:component description="StudyParticipantPanel" implements="force:appHostable">
+    <!-- Attributes -->
     <aura:attribute name="filter" type="StudyParticipantFilter"/>
+    <aura:attribute name="pagination" type="PaginationData"/>
+
+    <!--Handler -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
     <lightning:card title="Study Participant Panel">
         <c:StudyParticipantFilter filter="{!v.filter}" onchange="{!c.updateTable}"/>
+        <c:Pagination pagination="{!v.pagination}" onchange="{!c.updateTable}"/>
+
     </lightning:card>
 </aura:component>
