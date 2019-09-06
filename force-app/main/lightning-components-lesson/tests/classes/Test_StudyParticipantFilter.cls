@@ -8,7 +8,7 @@ private class Test_StudyParticipantFilter {
     static void test1() {
         Test.startTest();
         Contact contact = new Contact(LastName = 'TestFil');
-        insert  contact;
+        insert contact;
         Clinical_Study__c clinicalStudy = new Clinical_Study__c(Title__c = 'MyTitleTest');
         insert clinicalStudy;
 
@@ -61,5 +61,12 @@ private class Test_StudyParticipantFilter {
 
         StudyParticipantPanelRemote.InitData initData = StudyParticipantPanelRemote.getInitData();
         System.assert(initData.pagination.pagesCount == 2, 'Wrong number of pages' + initData.pagination.pagesCount);
+
+        initData.pagination.currentPage = 2;
+        SearchResponse searchResponse = StudyParticipantPanelRemote.search(
+                JSON.serialize(initData.filter),
+                JSON.serialize(initData.pagination)
+        );
+        System.assert(searchResponse.pageRecords.size() == 2, 'Wrong record number' + searchResponse.pageRecords.size());
     }
 }

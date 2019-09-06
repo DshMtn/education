@@ -5,7 +5,6 @@
 ({
   doInit: function(component, event, helper) {
     let action=component.get('c.getInitData');action.setCallback(this, function(response) {
-      debugger;
       if(response.getState() === 'SUCCESS' ) {
         let initData = response.getReturnValue();
         component.set('v.pagination', initData.pagination);
@@ -16,7 +15,26 @@
     });
     $A.enqueueAction(action);
   },
-  updateTable: function(component, event, helper) {
-    alert('Update table action');
+
+  doSearch: function(component, event, helper) {
+    component.find('spinner').show();
+    let action = component.get('c.search');
+    let currentTerm = component.get('v.filter.studyTitleTerm');
+    action.setParams({
+      filter: JSON.stringify(component.get('v.filter')),
+      pagination: JSON.stringify(component.get('v.pagination')),
+    });
+    action.setCallback(this, function(response) {
+      debugger;
+      if(response.getState() === 'SUCCESS') {
+        let searchResponse = response.getReturnValue();
+        if(component.get('v.filter.studyTitleTerm') === currentTerm) {
+          component.set('v.pagination', searchResponse.paginationData);
+          component.set('v.pageRows', searchResponse.pageRecords);
+          component.find('spinner').hide();
+        }
+      }
+    });
+    $A.enqueueAction(action);
   }
 });
