@@ -5,7 +5,7 @@
 @IsTest
 private class Test_StudyParticipantFilter {
     @IsTest
-    static void testBehavior() {
+    static void test1() {
         Test.startTest();
         Contact contact = new Contact(LastName = 'TestFil');
         insert  contact;
@@ -37,5 +37,29 @@ private class Test_StudyParticipantFilter {
         System.assert(response.pageRecords.size() == 1, 'Wrong records count per current page');
 
         System.assert(response2.pageRecords.size() == 0, 'Must be empty List');
+    }
+
+
+    @isTest
+    private static void test2() {
+        Clinical_Study__c clinicalStudy = new Clinical_Study__c(
+                Title__c = 'TitleTest'
+        );
+        insert clinicalStudy;
+        for (Integer i = 0; i < 7; i++) {
+            Contact contact = new Contact(
+                    LastName = 'TestContact ' + i
+            );
+            insert contact;
+            Study_Participant__c studyParticipant = new Study_Participant__c(
+                    Contact__c = contact.Id,
+                    Clinical_Study__c = clinicalStudy.Id,
+                    Status__c = 'open'
+            );
+            insert studyParticipant;
+        }
+
+        StudyParticipantPanelRemote.InitData initData = StudyParticipantPanelRemote.getInitData();
+        System.assert(initData.pagination.pagesCount == 2, 'Wrong number of pages' + initData.pagination.pagesCount);
     }
 }

@@ -11,6 +11,7 @@ public with sharing class SearchService {
         Integer allRecordsCount = Database.countQuery(countQuery);
         paginationData.setRecordsCount(allRecordsCount);
 
+
         String query = 'SELECT ' + String.join(searchFilter.getFields(), ',') +
                 ' FROM ' + searchFilter.getSObjectType() + ' ' + searchFilter.getFilterString() +
                 ' LIMIT ' + paginationData.pagesRecordsCount +
