@@ -4,14 +4,14 @@
 
 public with sharing class PaginationData {
     @AuraEnabled public Integer allRecordsCount;
-    @AuraEnabled public Integer pagesCount;
-    @AuraEnabled public Integer pagesRecordsCount;
-    @AuraEnabled public Integer currentPage;
-    @AuraEnabled public Integer currentPageCount;
-    @AuraEnabled public Integer offset;
-    @AuraEnabled public Integer endOffset;
+        @AuraEnabled public Integer pagesCount;
+        @AuraEnabled public Integer pagesRecordsCount;
+        @AuraEnabled public Integer currentPage;
+        @AuraEnabled public Integer currentPageCount;
+        @AuraEnabled public Integer offset;
+        @AuraEnabled public Integer endOffset;
 
-    public PaginationData() {
+        public PaginationData() {
         currentPage = 1;
         pagesRecordsCount = 5;
     }
